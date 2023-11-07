@@ -52,9 +52,13 @@
 
     出力された[Connect via browser:]に続く URL 値をコピーします。
 
-1. 事前に作成した Eventt Grid System topic リソースのイベントサブスクリプションを以下のような設定値で作成します。
+1. 事前に作成した Event Grid System topic リソースのイベントサブスクリプションを以下のような設定値で作成します。
 
     ![01](https://github.com/TK3214-MS/POC-Call-Automation/assets/89323076/5f0545b5-1ca2-4658-9cfb-74266c8e0a5b)
+
+1. Event Grid System topic リソースの追加イベントサブスクリプションを以下のような設定値で作成します。
+
+    ![01-01](https://github.com/TK3214-MS/POC-Ignite2023-CallAutomation/assets/89323076/8095b759-85f9-4d82-bbb9-66b9fbdd674b)
 
 ## 実行
 ### 構成ファイルの定義
