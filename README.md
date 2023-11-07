@@ -4,7 +4,7 @@
 # アーキテクチャー
 今回のアーキテクチャーは以下の通りです。
 
-![00](https://github.com/TK3214-MS/POC-Ignite2023-CallAutomation/assets/89323076/521864e2-8aa5-4507-bfe3-6edb1ea85b39)
+![00](https://github.com/TK3214-MS/POC-Ignite2023-CallAutomation/assets/89323076/4fa4bef0-ac32-4295-9f8a-50a913bc8448)
 
 簡単な流れは以下の通りです。
 
