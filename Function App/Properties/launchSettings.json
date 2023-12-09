@@ -1,0 +1,9 @@
+{
+  "profiles": {
+    "graph_search_functions": {
+      "commandName": "Project",
+      "commandLineArgs": "--port 7022",
+      "launchBrowser": false
+    }
+  }
+}
