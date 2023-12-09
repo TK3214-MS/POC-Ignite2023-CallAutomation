@@ -63,6 +63,60 @@
 
     ![01-01](https://github.com/TK3214-MS/POC-Ignite2023-CallAutomation/assets/89323076/8095b759-85f9-4d82-bbb9-66b9fbdd674b)
 
+### Azure Function App の構成
+#### .NET 7.0 SDK の準備
+1. [.NET 7.0 のインストールページ](https://dotnet.microsoft.com/en-us/download/dotnet/7.0)から、.NET 7.0 SDK をインストールしてください。
+
+#### Azure CLI の準備
+1. [手順ページ](https://learn.microsoft.com/ja-jp/cli/azure/install-azure-cli)に則り、Azure CLI をインストールしてください。
+
+#### Azure Functions Core Tools の準備
+1. [Azure Functions Core Tools の GitHub ページ](https://github.com/Azure/azure-functions-core-tools) の Installing より、Azure Functions Core Tools をインストールしてください。
+
+#### ユーザー認証用のアプリケーションの登録
+Microsoft Search API を使用するために、Azure Active Directory アプリケーションを登録します。
+1. [手順ページ](https://learn.microsoft.com/ja-jp/graph/tutorials/dotnet?tabs=aad&tutorial-step=1)に則って、ユーザー認証用アプリケーションを登録してください。
+1. 登録したアプリケーションページより、左のナビゲーションバーから「API のアクセス許可」を選択し、以下のアクセス許可を追加してください。必要なアクセス許可は、[Microsoft Search API ページ](https://learn.microsoft.com/ja-jp/graph/api/resources/search-api-overview?view=graph-rest-1.0&preserve-view=true#scope-search-based-on-entity-types) の「エンティティ型にも戸津板検索の範囲設定」よりご確認いただけます。
+1. 登録したアプリケーションページより、左のナビゲーションバーから「証明書とシークレット」を選択し、新しいクライアント シークレットの作成を行ってください。この際に作成されたシークレットの値は後ほど使用するので、控えておいてください。(クライアント シークレットの値は一度しか表示されないので注意してください。)
+
+
+#### 関数の準備
+以下のコマンドでサンプル コードをローカルにクローンしてください。
+
+```cli
+git clone https://github.com/marumaru1019/POC-MS-Search-Function
+```
+
+#### Azure リソースの作成と関数のデプロイ
+1. サンプル コードをクローンしたディレクトリまで移動してください。
+    ```
+    cd /path/to/POC-MS-Search-Function
+    ```
+1. Azure にログインしてください。
+    ```
+    az login
+    ```
+1. 任意のリージョンにリソース グループを作成して下さい。リソースグループ名は任意のものを指定してください。
+    ```
+    az group create --name <リソースグループ名> --location <リージョン>
+    ```
+1. 3 で作成したリソースグループとリージョン内に、Blob ストレージを作成して下さい。ストレージアカウント名は任意のものを指定してください。
+    ```
+    az storage account create --name <ストレージアカウント名> --resource-group <リソースグループ名> --location <リージョン> --sku Standard_LRS --allow-blob-public-access false
+    ```
+1. Azure に関数アプリを作成してください。関数アプリ名は任意のものを指定してください。
+    ```
+    az functionapp create --resource-group <リソースグループ名> --consumption-plan-location <リージョン> --runtime dotnet-isolated --functions-version 4 --name <関数アプリ名> --storage-account <ストレージアカウント名>
+    ```
+1. 作成した関数アプリに、ClientId、TenantId、ClientSecret を環境変数として設定してください。クライアント ID、テナント ID、クライアント シークレットは、[ユーザー認証用のアプリケーションの登録](#ユーザー認証用のアプリケーションの登録)で作成したものを使用してください。
+    ```
+    az functionapp config appsettings set --name <関数アプリ名> --resource-group <リソースグループ名> --settings ClientId=<クライアント ID> TenantId=<テナント ID> ClientSecret=<クライアント シークレット>
+    ```
+1. Azure に関数をデプロイしてください。
+    ```
+    func azure functionapp publish <関数アプリ名>
+    ```
+
 ## 実行
 ### 構成ファイルの定義
 [appsettings.json]ファイルを以下の通り環境値に置き換えます。
