@@ -1,5 +1,5 @@
-# Ignite Japan 2023
-公開され次第アップデート予定です。
+# Ignite Japan 2023 での発表内容
+[![Video](https://img.youtube.com/vi/2EjYMA_qSjc/maxresdefault.jpg)](https://www.youtube.com/watch?v=2EjYMA_qSjc)
 
 # アーキテクチャー
 今回のアーキテクチャーは以下の通りです。
